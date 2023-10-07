@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=600px, initial-scale=1">
+    <meta charset="utf-8">
+    <title>MRU e MRUV</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="./css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Cabeçalho do site -->
+    <header id="header">
+        <div class="container">
+            <div class="header">
+                <div id="site-name">Simulações de Física</div>
+                <div id="site-slogan">Laboratório de Pesquisa em Ensino Científico e Tecnológico (ITA)</div>
+            </div>
+        </div>
+    </header>
+
+    <h2>Movimento Retilíneo Uniforme e Uniformimente Variado</h2>
+
+    <!-- Espaço de simulação -->
+    <div style="width:600px; margin-left:auto; margin-right:auto; position:relative;">
+        <img id="scenario" class="simScenario" src="./files/PistaCorrida.png" width="100%" height="200px">
+        <img id="scenario-grid" class="simScenario" src="./files/scenario3-grid.png" width="100%" height="300px" hidden>
+        <canvas class="canvas" id="trailCanvas" width="600" height="300">Canvas not supported; please update your browser.</canvas>
+        <canvas class="canvas" id="theCanvas" width="600" height="300">Canvas not supported; please update your browser.</canvas>
+    </div>
+
+    <!-- Controles da simulação -->
+    <div class="container-fluid slider-container">
+        <div class="row">
+            <!-- Timer e Distância -->
+            <div class="simInput col-sm-4 text-center chronoBox">
+              Tempo decorrido: <span id="timerReadout">0</span> s
+            </div>
+            <div class="simInput col-sm-4 text-center chronoBox">
+              Distância bola Preta: <span id="blackBallDistanceReadout">0</span> m
+            </div>
+            <div class="simInput col-sm-4 text-center chronoBox">
+              Distância bola Cinza: <span id="grayBallDistanceReadout">0</span> m
+            </div>
+
+            <!-- Velocidade inicial da bola Preta -->
+            <div class="simInput simParamSlider col-sm-4  text-center">
+              Velocidade inicial da bola Preta = <span id="blackBallSpeedReadout">50</span> m/s 
+              <input type="range" id="blackBallSpeedSlider" min="0" max="50" step="1" value="50" oninput="showBlackBallSpeed();" onchange="showBlackBallSpeed();">
+            </div>
+
+            <!-- Velocidade inicial da bola Cinza -->
+            <div class="simInput simParamSlider col-sm-4  text-center">
+              Velocidade inicial da bola Cinza = <span id="grayBallSpeedReadout">50</span> m/s 
+              <input type="range" id="grayBallSpeedSlider" min="0" max="50" step="1" value="50" oninput="showGrayBallSpeed();" onchange="showGrayBallSpeed();">
+            </div>
+
+            <!-- Aceleração inicial da bola Preta -->
+            <div class="simInput simParamSlider col-sm-4  text-center">
+              Aceleração inicial da bola Preta = <span id="blackBallAccelReadout">50</span> m/s^2 
+              <input type="range" id="blackBallAccelSlider" min="0" max="50" step="1" value="50" oninput="showBlackBallAccel();" onchange="showBlackBallAccel();">
+            </div>
+            
+            <div class="simInput col-sm-3 text-center">
+                Cor: 
+                <select id="trailColors" onchange="changeColor();">
+                    <option value="black"> Preto </option>
+                    <option value="red">Vermelho</option>
+                    <option value="darkgreen">Verde</option>
+                    <option value="blue">Azul</option>
+                </select>
+            </div>
+            <div class="simInput col-12 text-center">
+                <input id="FireButtom" class="customButton Fire" type="button" value="Iniciar movimento" onclick="fireProjectile();">
+                <input class="customButton" type="button" value="Limpar" onclick="clearTrail();">
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/MRU-MRUV.js"></script>
+
+    <!-- Informações sobre o autor -->
+    <p>
+        <button class="btn colapseButton" type="button">Sobre o autor</button>
+    </p>
+    <div id="collapseAuthor">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8 caption">
+                  <p class="texto"> Minibio do Ivan</p>
+                  <p class="texto"> O autor está envolvido desde 2007 com olimpíadas científicas de Física e atualmente é professor no departamento de Física do ITA.</p>
+                  <p class="texto"> Minibio do Victor</p>
+                  <p class="texto"> Aluno do Instituto Tecnologico de Aeronáutica e entusiasta por Física</p>
+                </div>
+                <div class="col-md-3 justify-content-center text-center">
+                  <a href="www.ivanguilhon.com.br/sobre-o-livro">
+                      <img class="profile-image" src="./files/perfil-sm.png">
+                  </a>
+                  <a href="">
+                      <img class="profile-image" src="./files/FotoVictor.jpg">
+                  </a>
+                </div>  
+            </div>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="panel-footer no-padding">
+        <div class="container-fluid no-padding">
+            <div class="row">
+                <section class="col-sm-4 text-center">
+                    <div class="text-center caption no-padding">Simulação desenvolvida para fins de estudo. Comercialização não autorizada.</div>
+                </section>
+                <section class="col-sm-4 text-center no-padding">
+                    <a class="footer-buttom" href="www.ivanguilhon.com.br"> www.ivanguilhon.com.br</a>
+                </section>
+                <section class="col-sm-4 text-center no-padding">
+                    <a class="footer-buttom" href="https://www.instagram.com/prof.ivanguilhon/"><img src='./files/instagram.png' height=40px></a>
+                    <a class="footer-buttom" href="https://www.youtube.com/channel/UCP3ih3EY-FGttBFxUIC_mMw"><img src='./files/youtube.png' height=40px></a>
+                    <a class="footer-buttom" href="https://www.facebook.com/nivel.olimpico/"><img src='./files/facebook.png' height=40px></a>
+                </section>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
